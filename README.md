@@ -1,4 +1,4 @@
-# so-webapp
+# viajuntos-webapp
 
 ## Project setup
 ```
