@@ -49,10 +49,9 @@ export default {
   padding: 10px 20px;
 }
 .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
+  background-color: rgba(56, 163, 165, 0.2);
+  padding: 15px;
+  border-radius: 8px;
 }
 .title {
   color: white;

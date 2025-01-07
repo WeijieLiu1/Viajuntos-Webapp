@@ -35,7 +35,7 @@ export default {
           password: this.password,
         });
         axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token;
-        this.$router.push('/ReportedUsers');
+        this.$router.push('/reportedUsers');
       } catch (error) {
         this.error = true;
       }

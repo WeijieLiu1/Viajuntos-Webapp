@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div >
     <div v-if="loading" class="loading-indicator">Processing, please wait...</div>
     <div v-else>
       <div v-if="users.length < 1" class="advice">No users banned</div>
@@ -116,7 +116,6 @@ export default {
 }
 .container {
   background-color: rgba(56, 163, 165, 0.2);
-  margin-bottom: 20px;
   padding: 15px;
   border-radius: 8px;
 }
@@ -124,5 +123,8 @@ export default {
   margin-top: 30px;
   font-size: 20px;
   text-align: center;
+  background-color: rgba(56, 163, 165, 0.2);
+  padding: 15px;
+  border-radius: 5px;
 }
 </style>

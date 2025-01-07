@@ -37,6 +37,11 @@ const routes = [
         path: '/bannedUsers',
         name: 'BannedUsers',
         component: BannedUsers
+    },
+
+    {
+        path: '/',
+        redirect: { name: 'ReportedUsers' }
     }
 ]
 

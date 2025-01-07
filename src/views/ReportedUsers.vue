@@ -106,9 +106,8 @@ export default {
 <style scoped>
 .container {
   background-color: rgba(56, 163, 165, 0.2);
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 15px;
+  border-radius: 8px;
 }
 .button {
   border: 2px solid rgb(56, 163, 165);
