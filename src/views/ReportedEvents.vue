@@ -35,8 +35,14 @@
           <span class="info">Description:</span> {{ reportedEvent.event.description }}
         </div>
         <div>
-          <span class="info">Reported By User ID:</span> {{ reportedEvent.id_user }}
+          <span class="info">Reported-by User ID:</span> {{ reportedEvent.id_user }}
         </div>
+        <div>
+          <span class="info">Reported-by User Name:</span> {{ reportedEvent.reported_by_name }}
+        </div>
+        <!-- <div>
+          <img :src="user.reported_by_image_url || require('@/assets/noProfileImage.png')" alt="User Image" class="profile-image" />
+        </div> -->
         <div class="comment">
           <strong>Comment:</strong> {{ reportedEvent.comment }}
         </div>

@@ -3,30 +3,33 @@
     <div v-if="loading" class="loading-indicator">Processing, please wait...</div>
     <div v-else>
     <div v-if="users.length > 0">
-      <div v-for="user in users" :key="user.id_user" class="container">
+      <div v-for="user in users" :key="user.reported_by" class="container">
         <div>
-          <img :src="user.user_image_url || require('@/assets/noProfileImage.png')" alt="User Image" class="profile-image" />
+          <span class="info">Reported-by User ID:</span> {{ user.reported_by }}
         </div>
         <div>
-          <span class="info">User id:</span> {{ user.id_user }}
+          <span class="info">Reported-by User Name:</span> {{ user.reported_by_name }}
         </div>
         <div>
-          <span class="info">Username:</span> {{ user.id_user_reported.username }}
+          <span class="info">User id:</span> {{ user.user_reported.id }}
         </div>
         <div>
-          <span class="info">Email:</span> {{ user.id_user_reported.email }}
+          <span class="info">Username:</span> {{ user.user_reported.username }}
         </div>
         <div>
-          <span class="info">Description:</span> {{ user.id_user_reported.description }}
+          <span class="info">Email:</span> {{ user.user_reported.email }}
         </div>
         <div>
-          <span class="info">Hobbies:</span> {{ user.id_user_reported.hobbies }}
+          <span class="info">Description:</span> {{ user.user_reported.description }}
+        </div>
+        <div>
+          <span class="info">Hobbies:</span> {{ user.user_reported.hobbies }}
         </div>
         
         <div class="comment">
           <strong>Comment:</strong> {{ user.comment }}
         </div>
-        <button class="button ban-button" @click="confirmBan(user.id_user)">Ban User</button>
+        <button class="button ban-button" @click="confirmBan(user.user_reported.id)">Ban User</button>
       </div>
     </div>
     <div v-else class="advice">No users reported</div>
@@ -72,6 +75,7 @@ export default {
         this.users = this.users.filter((u) => u.id_user !== user);
         if (response.status === 201) {
           alert("User has been banned successfully.");
+          await this.getUsers();
         } else if (response.data.error_message) {
           alert(response.data.error_message);
         }
