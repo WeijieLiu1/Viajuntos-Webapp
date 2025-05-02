@@ -11,7 +11,7 @@
           <span class="info">Reported-by User Name:</span> {{ user.reported_by_name }}
         </div>
         <div>
-          <span class="info">User id:</span> {{ user.user_reported.id }}
+          <span class="info">User id:</span> {{ user.user_reported }}
         </div>
         <div>
           <span class="info">Username:</span> {{ user.user_reported.username }}
