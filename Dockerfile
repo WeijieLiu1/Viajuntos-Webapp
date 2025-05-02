@@ -1,5 +1,4 @@
 FROM node:18
-RUN ls -al && ls -al src
 WORKDIR /usr/src/app
 
 COPY package*.json ./
@@ -8,6 +7,7 @@ RUN npm install
 
 COPY . .
 
+RUN ls -al && ls -al src
 RUN npm run build
 
 CMD ["node", "server.js"]
