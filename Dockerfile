@@ -1,5 +1,5 @@
 FROM node:18
-
+RUN ls -al && ls -al src
 WORKDIR /usr/src/app
 
 COPY package*.json ./
