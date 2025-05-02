@@ -22,3 +22,7 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+###  https://viajuntos-webapp-749123955340.europe-southwest1.run.app/reportedUsers
+
+

@@ -41,7 +41,7 @@ const routes = [
 
     {
         path: '/',
-        redirect: { name: 'ReportedUsers' }
+        redirect: { name: 'Login' }
     }
 ]
 
