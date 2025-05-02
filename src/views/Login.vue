@@ -1,50 +1,47 @@
 <template>
- <div class="login">
-    <h2 class="title"><a><img :src="require('@/assets/logo.png')" style="border:1px white solid; margin-left: auto; width: 45px; height: 45px;"></a> SocialOut</h2>
-    <form action class="form" @submit.prevent="login">
-      <label class="form-label" for="#email">Email:</label>
-      <input v-model="email" class="form-input" type="email" id="email" required placeholder="Email">
-      <label class="form-label" for="#password">Password:</label>
-      <input v-model="password" class="form-input" type="password" id="password" placeholder="Password">
+  <div class="login">
+    <h2 class="title">
+      <a>
+        <img :src="require('@/assets/logo.png')" style="border:1px white solid; margin-left: auto; width: 45px; height: 45px;" />
+      </a>
+      SocialOut
+    </h2>
+    <form class="form" @submit.prevent="login">
+      <label class="form-label" for="email">Email:</label>
+      <input v-model="email" class="form-input" type="email" id="email" required placeholder="Email" />
+      <label class="form-label" for="password">Password:</label>
+      <input v-model="password" class="form-input" type="password" id="password" placeholder="Password" />
       <p v-if="error" class="error">Wrong email or password.</p>
-      <input class="form-submit" type="submit" value="Login">
+      <input class="form-submit" type="submit" value="Login" />
     </form>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axiosInstance from '@/utils/axios';
+
 export default {
   name: 'ReportedUsers',
   data: () => ({
     email: '',
     password: '',
-    error: false
+    error: false,
   }),
   methods: {
     async login() {
-      axios({
-        url: "https://socialout-production.herokuapp.com/v1/admin/login",
-        method: "post",
-        data: JSON.stringify({
-          "email": this.email,
-          "password": this.password
-        }),
-        headers: {
-          'Content-type': 'application/json',
-          'Accept': 'application/json'
-        }
-      })
-      .then(response => {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token
-        this.$router.push('/')
-      })
-      .catch(() => {
-        this.error = true
-      })
-    }
-  }
-}
+      try {
+        const response = await axiosInstance.post('/v1/admin/login', {
+          email: this.email,
+          password: this.password,
+        });
+        axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token;
+        this.$router.push('/reportedUsers');
+      } catch (error) {
+        this.error = true;
+      }
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -77,7 +74,6 @@ export default {
 .form-input {
   padding: 10px 15px;
   background: none;
-  background-image: none;
   border: 1px solid white;
   color: white;
 }
@@ -89,5 +85,9 @@ export default {
   padding: 1rem 0;
   cursor: pointer;
   transition: background 0.2s;
+}
+.error {
+  color: red;
+  margin-top: 1rem;
 }
 </style>

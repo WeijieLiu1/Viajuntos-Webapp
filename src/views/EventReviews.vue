@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <p>
-      {{event.name}} - {{username}} ( {{email}} )
-      <button v-on:click="ban(event.user_creator)" class="button">Ban</button>
+      {{ event.name }} - {{ username }} ( {{ email }} )
+      <button @click="ban(event.user_creator)" class="button">Ban</button>
     </p>
     <table class="table table-striped">
       <thead>
@@ -11,85 +11,66 @@
           <th>Review</th>
         </tr>
       </thead>
-      <tbody v-for="review in reviews" :key="review.user_id">
-        <td>{{ review.rating }}</td>
-        <td>{{ review.comment }}</td>
+      <tbody>
+        <tr v-for="review in reviews" :key="review.user_id">
+          <td>{{ review.rating }}</td>
+          <td>{{ review.comment }}</td>
+        </tr>
       </tbody>
     </table>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axiosInstance from "@/utils/axios";
+
 export default {
-  name: 'EventReviews',
-  data () {
+  name: "EventReviews",
+  data() {
     return {
       event: {},
-      username: '',
-      email: '',
+      username: "",
+      email: "",
       reviews: [],
-      error: ''
-    }
+      error: "",
+    };
   },
   methods: {
     async getReviews() {
-      const self = this;
-      axios({
-        url: "https://socialout-production.herokuapp.com/v3/events/review?eventid=" + this.$route.params.id,
-        method: "get",
-        headers: {
-          'Content-type': 'application/json',
-          'Accept': 'application/json'
-        },
-        withCredentials: true
-      })
-      .then(response => {
-        self.event = response.data.event;
-        self.username = response.data.username;
-        self.email = response.data.email;
-        self.reviews = response.data.reviews;
-      })
-      .catch(error => {
-        if (error.response) {
-          if  (error.response.status === 401)
-            self.$router.push('/login');
-          else 
-            self.error = error.response.data.error_message;
-        }
-      })
+      try {
+        const response = await axiosInstance.get(
+          `/v3/events/review?eventid=${this.$route.params.id}`
+        );
+        this.event = response.data.event;
+        this.username = response.data.username;
+        this.email = response.data.email;
+        this.reviews = response.data.reviews;
+      } catch (error) {
+        this.handleError(error);
+      }
     },
     async ban(id) {
-      const self = this;
-      axios({
-        url: "https://socialout-production.herokuapp.com/v1/admin/ban",
-        method: "post",
-        data: JSON.stringify({
-          "id": id,
-        }),
-        headers: {
-          'Content-type': 'application/json',
-          'Accept': 'application/json'
-        },
-        withCredentials: true
-      })
-      .then(() => {
-        location.reload()
-      })
-      .catch(error => {
-        if (error.response) {
-          if  (error.response.status === 401)
-            self.$router.push('/login');
-          else 
-            self.error = error.response.data.error_message;
+      try {
+        await axiosInstance.post("/v1/admin/ban", { id });
+        this.getReviews(); // 刷新数据，无需重载页面
+      } catch (error) {
+        this.handleError(error);
+      }
+    },
+    handleError(error) {
+      if (error.response) {
+        if (error.response.status === 401) {
+          this.$router.push("/login");
+        } else {
+          this.error = error.response.data.error_message;
         }
-      })
-    }
+      }
+    },
   },
-  mounted () {
+  mounted() {
     this.getReviews();
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -97,12 +78,12 @@ export default {
   background-color: rgba(56, 163, 165, 0.2);
 }
 .button {
-  border: 2px solid rgb(56, 163, 165);;
+  border: 2px solid rgb(56, 163, 165);
   display: inline-block;
   margin-top: 17px;
   border-radius: 4px;
 }
-p{
+p {
   text-decoration-line: underline;
 }
 </style>
