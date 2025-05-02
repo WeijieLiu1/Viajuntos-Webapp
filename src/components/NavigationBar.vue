@@ -46,12 +46,16 @@ export default {
   background-color: #38A3A5;
   display: flex;
   align-items: center;
+  justify-content: space-between; /* 关键：让两端对齐 */
   padding: 10px 20px;
 }
 .container {
+  display: flex; /* 关键：让子元素横向排列 */
+  align-items: center;
   background-color: rgba(56, 163, 165, 0.2);
   padding: 15px;
   border-radius: 8px;
+  width: 100%; /* 让子元素占满导航条宽度 */
 }
 .title {
   color: white;
