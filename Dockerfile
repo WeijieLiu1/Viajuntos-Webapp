@@ -10,7 +10,7 @@ COPY . .
 
 RUN npm run build
 
-CMD ["node", "serve.js"]
+CMD ["node", "server.js"]
 
 ENV PORT=8080
 EXPOSE 8080
