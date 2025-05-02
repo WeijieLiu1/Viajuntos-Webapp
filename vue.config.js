@@ -5,7 +5,7 @@ module.exports = defineConfig({
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:5000',  // 后端的API地址
+        target: 'https://viajuntos-backend-284495715917.europe-southwest1.run.app/',  // 后端的API地址
         changeOrigin: true,              // 如果后端是 HTTPS 协议，设置为 true
         secure: false,                  // 如果后端使用的是自签名证书，可以设置为 false
         pathRewrite: {
